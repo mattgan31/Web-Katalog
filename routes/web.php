@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminFoodController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
 
@@ -18,6 +19,12 @@ use App\Http\Controllers\FoodController;
 // Route::get('/', function () {
 //     return view('home');
 // });
-Route::get('/', [FoodController::class, 'index'])->name('food');
+Route::get('/', [FoodController::class, 'index'])->name('home');
 Route::post('food', [FoodController::class, 'store'])->name('food');
 Route::get('add-food', [FoodController::class, 'create']);
+
+// Admin
+Route::get('admin', [AdminFoodController::class, 'index'])->name('admin');
+Route::get('admin/add-food', [AdminFoodController::class, 'create'])->name('admin-add');
+Route::post('admin/add-food', [AdminFoodController::class, 'create'])->name('admin-add');
+Route::get('admin/show/{food}', [AdminFoodController::class, 'show'])->name('admin-show');

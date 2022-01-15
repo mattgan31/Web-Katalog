@@ -16,7 +16,7 @@ class FoodController extends Controller
     public function index()
     {
         $foods = Food::get();
-        return view('food', compact('foods'));
+        return view('user.food', compact('foods'));
     }
 
     /**
@@ -26,7 +26,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('inputFood');
+        return view('user.inputFood');
     }
 
     /**
@@ -44,13 +44,15 @@ class FoodController extends Controller
         $food->namefood = $request->namefood;
         $food->stock = $request->stock;
         $food->image = $imageName;
+        $food->price = $request->price;
+        $food->description = $request->description;
         $food->category = $request->category;
 
         $save = $food->save();
 
         if ($save) {
             Session::flash('success', 'Input Berhasil!');
-            return redirect()->route('food');
+            return redirect()->route('home');
         } else {
             Session::flash('error', 'Input Gagal!');
             return redirect()->route('add-food');

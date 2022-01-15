@@ -18,6 +18,8 @@ class CreateFoodsTable extends Migration
             $table->string('namefood');
             $table->integer('stock');
             $table->string('image');
+            $table->integer('price');
+            $table->string('description');
             $table->string('category');
             $table->timestamps();
         });
