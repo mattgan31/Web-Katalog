@@ -70,14 +70,19 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Kontak Kami</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/add-food">Tambah Makanan</a>
-                        </li>
                     </ul>
-                    <form class="d-flex">
+                    <form class="d-flex" style="margin-right: 12px">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
+                    <div class="btn btn-sm btn-success">
+                        @php
+                            if (Auth::check()) {
+                                echo '<a class="nav-link text-white" href="/profile">' . Auth::user()->name . '</a>';
+                            } else {
+                                echo '<a class="nav-link text-white" href="/login">Login</a>';
+                        } @endphp
+                    </div>
                 </div>
             </div>
         </nav>
@@ -106,14 +111,16 @@
 
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h3 class="card-title">{{ $fd->namefood }}</h3>
-                                        <b class="text-muted text-right">Rp{{ $fd->price }}</b>
+                                        <h4 class="card-title">{{ $fd->namefood }}</h4>
+                                        <b class="text-bold text-right">Rp{{ $fd->price }}</b>
                                     </div>
                                     <p class="card-text">{{ $fd->description }}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Add to
+                                                Cart</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Buy
+                                                Now</button>
                                         </div>
                                         <small class="text-muted">{{ $fd->created_at->format('d/m/Y') }}</small>
                                     </div>

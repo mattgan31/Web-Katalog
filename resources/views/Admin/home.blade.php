@@ -92,11 +92,16 @@
                                             </i>
                                             Edit
                                         </a>
-                                        <a class="btn btn-danger btn-sm" href="/admin/delete/{{ $fd->id }}">
-                                            <i class="fas fa-trash">
-                                            </i>
-                                            Delete
-                                        </a>
+                                        <form action="/admin/delete/{{ $fd->id }}" method="post"
+                                            class="d-inline">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash-alt">
+                                                </i>
+                                                Delete
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

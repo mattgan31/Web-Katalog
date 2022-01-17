@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Food;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class AdminFoodController extends Controller
 {
@@ -15,6 +18,9 @@ class AdminFoodController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->status != 'admin') {
+            return redirect('home');
+        }
         $foods = Food::get();
         return view('admin.home', compact('foods'));
     }
@@ -37,6 +43,33 @@ class AdminFoodController extends Controller
      */
     public function store(Request $request)
     {
+
+        $rules = [
+            'namefood' => 'required|string',
+            'stock' => 'required|integer',
+            'price' => 'required|integer',
+            'category' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'required',
+        ];
+
+        $messages = [
+            'namefood.required' => 'Nama harus diisi',
+            'namefood.string' => 'Nama harus berupa text',
+            'stock.required' => 'Stok harus diisi',
+            'stock.integer' => 'Stok harus berupa angka',
+            'price.required' => 'Harga harus diisi',
+            'price.integer' => 'Harga harus berupa angka',
+            'category.required' => 'Kategori harus diisi',
+            'category.string' => 'Kategori harus berupa text',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
 
@@ -55,7 +88,7 @@ class AdminFoodController extends Controller
             return redirect()->route('admin');
         } else {
             Session::flash('error', 'Input Gagal!');
-            return redirect()->route('admin/add-food');
+            return redirect()->route('admin-add');
         }
     }
 
@@ -78,7 +111,7 @@ class AdminFoodController extends Controller
      */
     public function edit(Food $food)
     {
-        //
+        return view('admin.editFood', compact('food'));
     }
 
     /**
@@ -90,7 +123,60 @@ class AdminFoodController extends Controller
      */
     public function update(Request $request, Food $food)
     {
-        //
+        $rules = [
+            'namefood' => 'required|string',
+            'stock' => 'required|integer',
+            'price' => 'required|integer',
+            'category' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'required',
+        ];
+
+        $messages = [
+            'namefood.required' => 'Nama harus diisi',
+            'namefood.string' => 'Nama harus berupa text',
+            'stock.required' => 'Stok harus diisi',
+            'stock.integer' => 'Stok harus berupa angka',
+            'price.required' => 'Harga harus diisi',
+            'price.integer' => 'Harga harus berupa angka',
+            'category.required' => 'Kategori harus diisi',
+            'category.string' => 'Kategori harus berupa text',
+            'description.required' => 'Deskripsi harus diisi',
+            'description.string' => 'Deskripsi harus berupa text',
+            'image.required' => 'Deskripsi harus diisi',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+
+        if ($request->image == null || $request->image == '') {
+        } else {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $food->image = $imageName;
+        }
+
+        $food = Food::find($food->id);
+        $food->namefood = $request->namefood;
+        $food->stock = $request->stock;
+        $food->price = $request->price;
+        $food->description = $request->description;
+        $food->category = $request->category;
+
+
+
+        $save = $food->save();
+
+        if ($save) {
+            Session::flash('success', 'Input Berhasil!');
+            return redirect()->route('admin');
+        } else {
+            Session::flash('error', 'Input Gagal!');
+            return redirect()->route('admin/edit/{id}');
+        }
     }
 
     /**
@@ -101,6 +187,9 @@ class AdminFoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        //
+        $destination = 'images';
+        File::delete(public_path($destination . '/' . $food->image));
+        $food->delete();
+        return redirect()->route('admin');
     }
 }
