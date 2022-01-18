@@ -75,14 +75,17 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                    <div class="btn btn-sm btn-success">
-                        @php
-                            if (Auth::check()) {
-                                echo '<a class="nav-link text-white" href="/profile">' . Auth::user()->name . '</a>';
-                            } else {
-                                echo '<a class="nav-link text-white" href="/login">Login</a>';
-                        } @endphp
-                    </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            @php
+                                if (Auth::check()) {
+                                    echo '<a class="nav-link" href="/logout">' . Auth::user()->name . '</a>';
+                                } else {
+                                    echo '<a class="nav-link" href="/login">Login</a>';
+                            } @endphp
+                        </li>
+
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -114,7 +117,7 @@
                                         <h4 class="card-title">{{ $fd->namefood }}</h4>
                                         <b class="text-bold text-right">Rp{{ $fd->price }}</b>
                                     </div>
-                                    <p class="card-text">{{ $fd->description }}</p>
+                                    <p class="card-text">{{ Str::limit($fd->description, 90) }}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-sm btn-outline-secondary">Add to

@@ -37,7 +37,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/admin" class="nav-link {{ Request::is('admin') ? 'active' : '' }}">
+                    <a href="/admin/food" class="nav-link {{ Request::is('admin/food') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Daftar Makanan
@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin" class="nav-link {{ Request::is('admin/user') ? 'active' : '' }}">
+                    <a href="/admin/user" class="nav-link {{ Request::is('admin/user') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Daftar Pengguna
@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/logout" class="nav-link {{ Request::is('admin/user') ? 'active' : '' }}">
+                    <a href="/logout" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Logout

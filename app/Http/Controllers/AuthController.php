@@ -101,4 +101,8 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+    public function error()
+    {
+        return abort(404);
+    }
 }

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 
-class AdminFoodController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +20,16 @@ class AdminFoodController extends Controller
     public function index()
     {
         if (Auth::user()->status != 'admin') {
-            return redirect('home');
+            return abort(404);
         }
         $foods = Food::get();
-        return view('admin.home', compact('foods'));
+        return view('admin.food', compact('foods'));
     }
 
+    public function food()
+    {
+        return view('admin.home');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -129,7 +134,6 @@ class AdminFoodController extends Controller
             'price' => 'required|integer',
             'category' => 'required|string',
             'description' => 'required|string',
-            'image' => 'required',
         ];
 
         $messages = [
@@ -143,7 +147,6 @@ class AdminFoodController extends Controller
             'category.string' => 'Kategori harus berupa text',
             'description.required' => 'Deskripsi harus diisi',
             'description.string' => 'Deskripsi harus berupa text',
-            'image.required' => 'Deskripsi harus diisi',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -153,18 +156,27 @@ class AdminFoodController extends Controller
         }
 
         if ($request->image == null || $request->image == '') {
+            $food = Food::find($food->id);
+            $food->namefood = $request->namefood;
+            $food->stock = $request->stock;
+            $food->price = $request->price;
+            $food->description = $request->description;
+            $food->category = $request->category;
         } else {
+            $destination = 'images';
+            File::delete(public_path($destination . '/' . $food->image));
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
+            $food = Food::find($food->id);
+            $food->namefood = $request->namefood;
+            $food->stock = $request->stock;
+            $food->price = $request->price;
+            $food->description = $request->description;
+            $food->category = $request->category;
             $food->image = $imageName;
         }
 
-        $food = Food::find($food->id);
-        $food->namefood = $request->namefood;
-        $food->stock = $request->stock;
-        $food->price = $request->price;
-        $food->description = $request->description;
-        $food->category = $request->category;
+
 
 
 

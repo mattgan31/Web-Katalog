@@ -1,5 +1,5 @@
 @extends('Admin.template')
-@section('title', 'Daftar Makanan')
+@section('title', 'Tambah Makanan')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="/add-food" method="post" enctype="multipart/form-data">
+                    <form action="/admin/add-food" method="post" enctype="multipart/form-data">
                         @csrf
                         @if (session('errors'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">

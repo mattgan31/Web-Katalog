@@ -1,5 +1,5 @@
 @extends('Admin.template')
-@section('title', 'Daftar Makanan')
+@section('title', 'Edit Makanan')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
