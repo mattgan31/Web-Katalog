@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Middleware\Authenticate;
 
@@ -32,6 +33,8 @@ Route::get('home', [FoodController::class, 'index'])->name('home');
 Route::get('admin', [AuthController::class, 'error']);
 Route::group(['middleware' => 'auth'], function () {
     // User
+    Route::get('order/{food}', [OrderController::class, 'order'])->name('order');
+    Route::get('order/', [OrderController::class, 'showOrder'])->name('my-order');
 
     // Admin
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
@@ -41,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/show/{food}', [AdminController::class, 'show'])->name('admin-show');
     Route::get('admin/edit/{food}', [AdminController::class, 'edit'])->name('admin-edit');
     Route::put('admin/edit/{food}', [AdminController::class, 'update'])->name('admin-update');
-    Route::delete('admin/delete/{food}', [AdminController::class, 'destroy'])->name('admin-delete');
+    Route::get('admin/delete/{food}', [AdminController::class, 'destroy'])->name('admin-delete');
     Route::get('admin/user', [UserController::class, 'index'])->name('list-users');
 
 

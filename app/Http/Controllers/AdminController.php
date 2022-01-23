@@ -76,7 +76,7 @@ class AdminController extends Controller
         }
 
         $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        $request->image->move(public_path('images/foods/'), $imageName);
 
         $food = new Food;
         $food->namefood = $request->namefood;
@@ -163,10 +163,10 @@ class AdminController extends Controller
             $food->description = $request->description;
             $food->category = $request->category;
         } else {
-            $destination = 'images';
+            $destination = 'images/foods/';
             File::delete(public_path($destination . '/' . $food->image));
             $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
+            $request->image->move(public_path('images/foods/'), $imageName);
             $food = Food::find($food->id);
             $food->namefood = $request->namefood;
             $food->stock = $request->stock;
@@ -199,7 +199,7 @@ class AdminController extends Controller
      */
     public function destroy(Food $food)
     {
-        $destination = 'images';
+        $destination = 'images/foods/';
         File::delete(public_path($destination . '/' . $food->image));
         $food->delete();
         return redirect()->route('admin');

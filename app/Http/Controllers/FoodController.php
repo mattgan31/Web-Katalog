@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class FoodController extends Controller
@@ -16,7 +18,9 @@ class FoodController extends Controller
     public function index()
     {
         $foods = Food::get();
+        // $foods = DB::table('foods')->get();
         return view('user.food', compact('foods'));
+        // dd($foods);
     }
 
     /**
@@ -38,7 +42,7 @@ class FoodController extends Controller
     public function store(Request $request)
     {
         $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        $request->image->move(public_path('images/foods/'), $imageName);
 
         $food = new Food;
         $food->namefood = $request->namefood;

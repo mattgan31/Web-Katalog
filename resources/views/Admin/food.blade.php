@@ -67,7 +67,7 @@
                                         {{ $no++ }}
                                     </td>
                                     <td>
-                                        <img src="{{ asset('images') }}/{{ $fd->image }}" alt=""
+                                        <img src="{{ asset('images/foods') }}/{{ $fd->image }}" alt=""
                                             style="height: 50px; width:100px">
                                     </td>
                                     <td>
