@@ -30,7 +30,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('register', [AuthController::class, 'showFormRegister'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
 Route::get('home', [FoodController::class, 'index'])->name('home');
-Route::get('admin', [AuthController::class, 'error']);
+// Route::get('admin', [AdminController::class, 'errorAdmin']);
 Route::group(['middleware' => 'auth'], function () {
     // User
     Route::get('order/{food}', [OrderController::class, 'order'])->name('order');

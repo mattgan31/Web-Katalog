@@ -26,5 +26,16 @@ class DatabaseSeeder extends Seeder
             'created_at' => '2022-01-22 00:50:19',
             'updated_at' => '2022-01-22 00:50:19'
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Rahmat',
+            'email' => '19',
+            'email_verified_at' => '1642812618.jpg',
+            'password' => 'alam',
+            'description' => 'Dibuat dari daging ayam dari peternakan sendiri, yang terawat dengan baik dan menjamin kualitas daging yang baik serta balutan bumbu saus kacang yang nikmat dapat membuat citarasa semakin nikmat',
+            'category' => 'Makanan',
+            'created_at' => '2022-01-22 00:50:19',
+            'updated_at' => '2022-01-22 00:50:19'
+        ]);
     }
 }

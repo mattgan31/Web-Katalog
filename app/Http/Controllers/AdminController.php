@@ -19,16 +19,21 @@ class AdminController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->status != 'admin') {
+        if (Auth::check() ){
+            if (Auth::user()->status != 'admin') {
+            return abort(404);
+            }
+        }else{
             return abort(404);
         }
+
         $foods = Food::get();
-        return view('admin.food', compact('foods'));
+        return view('Admin.food', compact('foods'));
     }
 
     public function food()
     {
-        return view('admin.home');
+        return view('Admin.home');
     }
     /**
      * Show the form for creating a new resource.
@@ -37,7 +42,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.inputFood');
+        return view('Admin.inputFood');
     }
 
     /**
@@ -105,7 +110,7 @@ class AdminController extends Controller
      */
     public function show(Food $food)
     {
-        return view('admin.details', compact('food'));
+        return view('Admin.details', compact('food'));
     }
 
     /**
@@ -116,7 +121,7 @@ class AdminController extends Controller
      */
     public function edit(Food $food)
     {
-        return view('admin.editFood', compact('food'));
+        return view('Admin.editFood', compact('food'));
     }
 
     /**
@@ -203,5 +208,13 @@ class AdminController extends Controller
         File::delete(public_path($destination . '/' . $food->image));
         $food->delete();
         return redirect()->route('admin');
+    }
+
+    public function errorAdmin(){
+        if(Auth::check()){
+
+        }else{
+            return abort(404);
+        }
     }
 }

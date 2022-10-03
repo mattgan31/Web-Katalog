@@ -25,17 +25,17 @@
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
-        @include('admin.layout.navbar')
+        @include('Admin.Layout.navbar')
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        @include('admin.layout.sidebar')
+        @include('Admin.Layout.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         @yield('content')
         <!-- /.content-wrapper -->
 
-        @include('admin.layout.footer')
+        @include('Admin.Layout.footer')
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">

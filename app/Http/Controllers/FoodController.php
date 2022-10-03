@@ -19,7 +19,7 @@ class FoodController extends Controller
     {
         $foods = Food::get();
         // $foods = DB::table('foods')->get();
-        return view('user.food', compact('foods'));
+        return view('User.food', compact('foods'));
         // dd($foods);
     }
 
@@ -30,7 +30,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('user.inputFood');
+        return view('User.inputFood');
     }
 
     /**
