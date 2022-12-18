@@ -29,11 +29,10 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Rahmat',
-            'email' => '19',
-            'email_verified_at' => '1642812618.jpg',
-            'password' => 'alam',
-            'description' => 'Dibuat dari daging ayam dari peternakan sendiri, yang terawat dengan baik dan menjamin kualitas daging yang baik serta balutan bumbu saus kacang yang nikmat dapat membuat citarasa semakin nikmat',
-            'category' => 'Makanan',
+            'email' => 'alamsyahr00@gmail.com',
+            'email_verified_at' => '2022-01-22 00:50:19',
+            'status' => 'admin',
+            'password' => '$2y$10$bBvlG2Kv9eEPJzIeQnICAOt/v70kUTzwMhFRH4hq913a/bk/Zje82',
             'created_at' => '2022-01-22 00:50:19',
             'updated_at' => '2022-01-22 00:50:19'
         ]);

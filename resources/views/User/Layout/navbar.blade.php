@@ -24,7 +24,7 @@
             {{Auth::user()->name}}
           </a>
           @else
-          <a href="/login" class="nav-link">Login</a>
+
             @endif
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="#">Akun</a></li>

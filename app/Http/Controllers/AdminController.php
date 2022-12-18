@@ -21,14 +21,16 @@ class AdminController extends Controller
     {
         if (Auth::check() ){
             if (Auth::user()->status != 'admin') {
-            return abort(404);
+                return abort(404);
+            }else{
+                $foods = Food::get();
+                return view('Admin.food', compact('foods'));
             }
         }else{
             return abort(404);
         }
 
-        $foods = Food::get();
-        return view('Admin.food', compact('foods'));
+
     }
 
     public function food()

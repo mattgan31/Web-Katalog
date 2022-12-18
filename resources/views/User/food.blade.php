@@ -13,6 +13,7 @@
         <div class="album py-5 bg-light">
             <div class="container">
 
+                @if (! $foods->isEmpty())
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     @foreach ($foods as $fd)
                         <div class="col">
@@ -40,8 +41,10 @@
                             </div>
                         </div>
                     @endforeach
-
                 </div>
+                @else
+                    <h2 class="text-center">Foods are not available</h2>
+                @endif
             </div>
         </div>
 @endsection

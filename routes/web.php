@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/show/{food}', [AdminController::class, 'show'])->name('admin-show');
     Route::get('admin/edit/{food}', [AdminController::class, 'edit'])->name('admin-edit');
     Route::put('admin/edit/{food}', [AdminController::class, 'update'])->name('admin-update');
-    Route::get('admin/delete/{food}', [AdminController::class, 'destroy'])->name('admin-delete');
+    Route::delete('admin/delete/{food}', [AdminController::class, 'destroy'])->name('admin-delete');
     Route::get('admin/user', [UserController::class, 'index'])->name('list-users');
 
 
