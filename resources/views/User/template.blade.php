@@ -42,7 +42,6 @@
                 font-size: 3.5rem;
             }
         }
-
     </style>
 
 
@@ -58,11 +57,11 @@
     <main>
 
         {{-- Content --}}
-    @yield('content')
+        @yield('content')
     </main>
 
-        {{-- footer --}}
-        @include('User.Layout.footer')
+    {{-- footer --}}
+    @include('User.Layout.footer')
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

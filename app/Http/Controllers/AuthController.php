@@ -45,7 +45,11 @@ class AuthController extends Controller
         ];
         Auth::attempt($data);
         if (Auth::check()) {
-            return redirect()->route('home');
+            if(Auth::user()->status == "admin"){
+                return redirect()->route('admin');
+            } else {
+                return redirect()->route('home');
+            }
         } else {
             Session::flash('error', 'Email atau Password salah!');
             return redirect()->route('login');
